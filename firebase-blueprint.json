@@ -1,0 +1,56 @@
+{
+  "entities": {
+    "users": {
+      "title": "User",
+      "description": "User profile and Meta connection data",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "metaAccessToken": { "type": "string", "description": "Encrypted or raw access token for Meta API" },
+        "metaAccountId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "createdAt"]
+    },
+    "reports": {
+      "title": "Funnel Report",
+      "description": "Saved funnel analysis reports",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "adAccountId": { "type": "string" },
+        "campaignId": { "type": "string" },
+        "dateRange": {
+          "type": "object",
+          "properties": {
+            "from": { "type": "string" },
+            "to": { "type": "string" }
+          }
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "impressions": { "type": "number" },
+            "clicks": { "type": "number" },
+            "landingPageViews": { "type": "number" },
+            "addToCart": { "type": "number" },
+            "purchases": { "type": "number" }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "name", "data", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "users",
+      "description": "User specific data"
+    },
+    "/reports/{reportId}": {
+      "schema": "reports",
+      "description": "Funnel reports"
+    }
+  }
+}
